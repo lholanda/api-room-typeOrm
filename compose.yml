@@ -1,0 +1,23 @@
+# compose.yaml
+services:
+  # volume é por container - dados persistidos
+  postgre:
+    image: postgres:12.17
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      # tipo bind mount
+      #- ./postgre_vol:/var/lib/postgresql/data
+      # tipo gerenciado pelo doker
+      - api-room_docker_vol:/var/lib/postgresql/data
+volumes:
+  api-room_docker_vol:
+    # criado internamente
+    name: api_room_postgre_vol
+    # criado externamente - tem que ter sido criado anteriormente manualmente
+    # name: scene_postgre_vol
+    external: true

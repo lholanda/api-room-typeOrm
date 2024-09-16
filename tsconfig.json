@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"target": "es2018",
+		"lib": ["es5", "es6", "ES2018"],
+		"experimentalDecorators": true, // por causa do typeorm 
+		"emitDecoratorMetadata": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"outDir": "./dist",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": true,  // forca definicao de funcoes 
+		"strictPropertyInitialization": false
+	},
+	"include": ["src/**/*"],  // inclui todos os arquivos a partir da src
+	"exclude": ["node_modules", "dist"],
+	"ts-node": {
+		"files": true  // validacao de tipagem
+	}
+}
