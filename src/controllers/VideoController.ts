@@ -18,11 +18,11 @@ export class VideoController {
   }
 
   async list(req: Request, res: Response) {
-    const videos = await AppDataSource.manager.find(Video);
-    
-    console.log(
-      videos
-    )
+    const { id } = req.params;
+
+    const iid = id ? Number(id) : 0;
+
+    const videos =  await VideoService.list( iid );
     
     return res.status(200).json(videos);
 

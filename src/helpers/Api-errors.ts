@@ -1,10 +1,10 @@
 // classe de error ApiError extendida de Error
 export class ApiError extends Error {
     public readonly statusCode: number;
-        constructor(message: string, statusCode: number) {
+    constructor(message: string, statusCode: number) {
         super(message)
-        //console.log(statusCode)
         this.statusCode = statusCode
+        console.log('---------apiError---------')
     }
 }
 

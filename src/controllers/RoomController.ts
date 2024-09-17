@@ -1,8 +1,13 @@
 import { Request, Response } from "express";
-import { BadRequestError, NotFoundError , FkFoundError } from "../helpers/Api-errors";
+import {
+  BadRequestError,
+  NotFoundError,
+  FkFoundError
+} from "../helpers/Api-errors";
 import { RoomService } from "../services/RoomService";
 import { VideoService } from "../services/VideoService";
 import { Room } from "../entities/Room";
+import { error } from "console";
 
 export class RoomController {
   // inserir Rooms
@@ -20,28 +25,24 @@ export class RoomController {
   // Exclui Room
   async delete(req: Request, res: Response) {
     const { id } = req.params;
-    const room = await RoomService.find( Number(id) );
+    //const room = await RoomService.find( Number(id) );
+    const room = await RoomService.findById(Number(id));
     if (!room) {
-      throw new NotFoundError("Room not found " + "(room_id = " + id + ")");
+      throw new NotFoundError(`Room not found ( id = ${id} )`);
     }
 
-   const room_id = room[0].id;
-   const video = ' '; //await VideoService.findByRoom( Number(room_id) );
-   if (video) {
-     throw new FkFoundError('Foreign Key found. This deletion is not possible !!!');
-   }
+    const room_id = room.id;
 
+    const video = await VideoService.findByRoom( room.id );
 
-    
-    //const {name} = room
-    
-    //onsole.log(name)
+    if (video) {
+      throw new FkFoundError(
+        "Foreign Key found. This deletion is not possible !!!"
+      );
+    }
 
-    // const video = VideoService.findByRoom( room );
+    const msgResult = await RoomService.delete(Number(id));
 
-
-
-    const msgResult = await RoomService.delete( Number(id) );
     return res.status(204).json();
   }
 
@@ -50,12 +51,13 @@ export class RoomController {
     const { id } = req.params;
 
     const iid = id ? Number(id) : 0;
-
     //const { take, perpage } = req.query;
-
     //console.log(take, perpage, Number(id) );
 
+    //const rooms = await RoomService.list(iid);
+
     const rooms = await RoomService.list( iid );
+
     return res.status(200).json(rooms);
   }
 }

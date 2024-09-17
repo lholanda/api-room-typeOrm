@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { BadRequestError } from "../helpers/Api-errors";
 import { SubjectService } from "../services/SubjectService";
-import { AppDataSource } from "../data-source";
-import { Subject } from "../entities/Subject";
 
 export class SubjectController {
   async create(req: Request, res: Response) {
@@ -17,7 +15,14 @@ export class SubjectController {
   }
 
   async list(req: Request, res: Response) {
-    const subjects = await AppDataSource.manager.find(Subject);
+
+    const { id } = req.params;
+
+    const iid = id ? Number(id) : 0;
+   
+
+    const subjects = await SubjectService.list( iid );
+
     return res.status(200).json(subjects);
   }
 }

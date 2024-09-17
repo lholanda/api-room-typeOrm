@@ -14,7 +14,8 @@ routes.delete("/rooms/:id", new RoomController().delete); // turmas
 routes.get("/subjects", new SubjectController().list); //disciplinas
 routes.post("/subjects", new SubjectController().create); //disciplinas
 
-routes.get("/videos", new VideoController().list); // videos
-routes.post("/videos", new VideoController().create); // videos
+routes.get("/videos",     new VideoController().list); // videos
+routes.get("/videos/:id", new VideoController().list); // videos
+routes.post("/videos",    new VideoController().create); // videos
 
 export default routes;

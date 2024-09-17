@@ -7,6 +7,8 @@ export const errorMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log('---!!!! ----- errors.ts--------> ', error.message)
+  // aqui compoe uma msg explicita para a aplicacao
   const statusCode = error.statusCode ? error.statusCode :  500
   const message = 
     error.statusCode ? 
