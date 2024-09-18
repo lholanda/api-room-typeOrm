@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Room } from "./Room";
 
 @Entity('subjects')                                // subjects = disciplinas room = aulas
@@ -8,17 +8,7 @@ export class Subject{
     @Column({ type: 'text'})
     name: string
 
-    @ManyToMany(()=>Room, room => room.subjects)
-    @JoinTable({
-        name: 'room_subject',
-        joinColumn: {
-            name: 'room_id',
-            referencedColumnName: 'id'
-        },
-        inverseJoinColumn: {
-            name: 'subject_id',
-            referencedColumnName: 'id'
-        }
-    })
+    // aqui usado em ambos os lados para indicar que há uma relação bidirecional.
+    @ManyToMany(()=>Room, (room) => room.subjects)
     rooms: Room[]
 }

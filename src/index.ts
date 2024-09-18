@@ -6,7 +6,7 @@ import { errorMiddleware } from "./middlewares/errors";
 import cors from "cors";
 import helmet from 'helmet';
 
-// antes de conectar o express, verifica se o banco inicializa, senao nem chama o express
+// antes de conectar o express, verifica se o banco inicializa, senao nem executa a app
 AppDataSource.initialize().then(() => {
   const app = express();
 
