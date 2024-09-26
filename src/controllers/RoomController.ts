@@ -90,7 +90,7 @@ export class RoomController {
     const _room_id    = rid ? Number(rid) : 0;
     const _subject_id = sid ? Number(sid) : 0;
 
-    await RoomService.removeRoomSubject( _room_id , _subject_id );
+    await RoomService.deleteRoomSubject( _room_id , _subject_id );
 
     return res.status(204).json();
   }

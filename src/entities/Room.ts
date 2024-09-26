@@ -38,7 +38,7 @@ export class Room {
   videos: Video[];  // aqui o room.videos
 
   @ManyToMany(() => Subject, (subject) => subject.rooms)
-  // tabela ternario pode ser configurada em qualquer um dos lados
+  // tabela associativa ser configurada em qualquer um dos lados
   @JoinTable({
     name: "room_subject", // Nome da tabela intermediária
     joinColumn: {

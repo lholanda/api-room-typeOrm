@@ -2,10 +2,15 @@ import { Router } from "express";
 import { SubjectController } from "./controllers/SubjectController";
 import { RoomController } from "./controllers/RoomController";
 import { VideoController } from "./controllers/VideoController";
+import { UserController } from "./controllers/UserController";
 
 const routes = Router();
 
-//routes.get("/rooms",    new RoomController().list);     // turmas
+
+// Users
+routes.post("/login", new UserController().create); 
+
+//Rooms
 routes.get("/rooms", new RoomController().list); // turmas
 routes.get("/rooms/:id", new RoomController().list); // turmas
 routes.post("/rooms", new RoomController().create); // turmas

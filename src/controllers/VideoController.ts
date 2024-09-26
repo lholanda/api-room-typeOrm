@@ -14,6 +14,7 @@ export class VideoController {
       throw new BadRequestError("title is required !!!");
     }
     const _id = room_id ? room_id : 0;
+    
     const newVideo = await VideoService.create( title, url , _id );
 
     return res.status(201).json(newVideo);

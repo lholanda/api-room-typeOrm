@@ -8,6 +8,9 @@ export class ApiError extends Error {
     }
 }
 
+
+// o comando super(message, 400) serve para chamar o construtor da classe pai que é ApiError
+
 export class BadRequestError extends ApiError{
     constructor(message: string){
         //message = message.length > 0 ? message : 'Bad Request Error !!!'
@@ -38,3 +41,6 @@ export class FkFoundError extends ApiError{
         super(message, 400)
     }
 }
+
+
+// qual a funcao do super em um construtor de classse 

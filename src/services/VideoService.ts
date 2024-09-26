@@ -2,7 +2,7 @@
 import { videoRepository } from "../repositories/videoRepository";
 import { roomRepository } from "../repositories/roomRepository";
 import { NotFoundError } from "../helpers/Api-errors";
-import { Room } from "../entities/Room";
+import { AppDataSource } from "../data-source";
 
 export class VideoService {
   static async create(title: string, url: string, room_id: number) {
@@ -14,7 +14,14 @@ export class VideoService {
     }
 
     const newVideo = videoRepository.create({ title, url, room });
-    return await videoRepository.save(newVideo);
+    //select * from videos;
+    return await AppDataSource.query(
+      `
+        INSERT INTO videos (title, url, room_id) VALUES (${title}, ${url}, ${room});
+
+      `
+    )
+    //return await videoRepository.save(newVideo);
   }
 
 

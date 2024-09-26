@@ -19,6 +19,10 @@ DB_NAME=api_rest_typescript
 ### datasource para trabalhar com typeOrm
 import { DataSource } from "typeorm"
 
+### Login e autenticação com JWT
+
+
+
 -- MYSQL
 // const MysqlDataSource = new DataSource({
 //     type: "mysql",

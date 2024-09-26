@@ -2,7 +2,7 @@ import "express-async-errors";
 import express from "express";
 import { AppDataSource } from "./data-source";
 import routes from "./routes";
-import { errorMiddleware } from "./middlewares/errors";
+import { errorMiddleware } from "./middlewares/middlewareError";
 import cors from "cors";
 import helmet from 'helmet';
 
@@ -22,8 +22,9 @@ AppDataSource.initialize().then(() => {
   app.use(cors(corsOptions));
   app.use(helmet());
 
+  // to use json
   app.use(express.json());
-
+  // routes
   app.use(routes);
 
   // middleware de tratamento de erros sempre apos o ultimo middleware
