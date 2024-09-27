@@ -5,6 +5,7 @@ import {
   FkFoundError
 } from "../helpers/Api-errors";
 import { UserService } from "../services/UserService";
+import bcrypt from 'bcrypt'
 
 export class UserController {
 
@@ -18,10 +19,26 @@ export class UserController {
       throw new BadRequestError("Email already registered. If you already have an account, please log in.");
     }
 
-    const newPassword = '3@'+password+'_j'
-    const newUser = await UserService.create(name, email, newPassword);
+    const saltRounds = 10;
+    const hashPassword = await bcrypt.hash(password, saltRounds)
 
-    return res.status(201).json(newUser);
+    const newUser = await UserService.create(name, email, hashPassword);
+
+    // retirar a password antes de retornar 
+    const {password: _p, ...user} = newUser;
+
+    return res.status(201).json(user);
   }
+
+  async list(req: Request, res: Response) {
+    const { id } = req.params;
+    const _id = id ? Number(id) : 0;
+   
+    const users = await UserService.list( _id );
+    return res.status(200).json(users);
+  }
+
+
+
 }
 

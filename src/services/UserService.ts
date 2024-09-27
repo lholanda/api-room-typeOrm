@@ -14,4 +14,23 @@ export class UserService{
     return await userRepository.save(newUser);
   }
 
+  // service find
+  static async list(id: number) {
+    let filtro: string = ``;
+    if (id != 0) {
+      filtro = ` id = ${id} `;
+    }
+
+    return await userRepository
+                  .createQueryBuilder("user")
+                  .select([
+                    "user.id", 
+                    "user.name", 
+                    "user.email"
+                  ])
+                  .where(filtro)
+                  .orderBy("user.id")
+                  .getMany();
+  }
+
 }
