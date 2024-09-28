@@ -8,19 +8,15 @@ export class UserService{
   }
 
   static async create(name: string, email: string, password: string) {
-
-    const newUser = userRepository.create({ name, email, password });
     
+    const newUser = userRepository.create({ name, email, password });
     return await userRepository.save(newUser);
   }
 
   // service find
   static async list(id: number) {
-    let filtro: string = ``;
-    if (id != 0) {
-      filtro = ` id = ${id} `;
-    }
-
+    let filtro: string = (id != 0) ? ` id = ${id} `: ``;
+    // retirar a password de user, selecionando apenas id, name e email
     return await userRepository
                   .createQueryBuilder("user")
                   .select([

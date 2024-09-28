@@ -23,8 +23,8 @@ export class UserController {
     const hashPassword = await bcrypt.hash(password, saltRounds)
 
     const newUser = await UserService.create(name, email, hashPassword);
-
-    // retirar a password antes de retornar 
+   
+    // tirar a password de dentro do newUser e todo o restante coloca na constante user - antes de retornar 
     const {password: _p, ...user} = newUser;
 
     return res.status(201).json(user);

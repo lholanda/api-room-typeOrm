@@ -3,14 +3,18 @@ import { SubjectController } from "./controllers/SubjectController";
 import { RoomController } from "./controllers/RoomController";
 import { VideoController } from "./controllers/VideoController";
 import { UserController } from "./controllers/UserController";
+import { LoginController } from "./controllers/LoginController";
 
 const routes = Router();
 
 
 // Users
-routes.post("/login", new UserController().create); 
+routes.post("/users", new UserController().create); 
 routes.get("/users", new UserController().list); 
 routes.get("/users/:id", new UserController().list); 
+
+// Login
+routes.post("/login", new LoginController().login);
 
 //Rooms
 routes.get("/rooms", new RoomController().list); // turmas

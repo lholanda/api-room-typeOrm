@@ -36,3 +36,19 @@ labs-up sobe banco e aplicacao
 ou 
 
 ydev
+
+### autenticação com JWT
+
+yarn add jsonwebtoken
+yarn -D add @types/jsonwebtoken
+
+jwt.io
+
+
+### JEST - teste unitarios
+yarn add --dev jest ts-jest @types/jest
+
+yarn test
+
+yarn test LoginController.test.ts
+
