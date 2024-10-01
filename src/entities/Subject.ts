@@ -11,4 +11,5 @@ export class Subject{
     // aqui usado em ambos os lados para indicar que há uma relação bidirecional.
     @ManyToMany(()=>Room, (room) => room.subjects)
     rooms: Room[]
+    
 }

@@ -52,3 +52,5 @@ yarn test
 
 yarn test LoginController.test.ts
 
+
+Bearer Token

@@ -4,17 +4,24 @@ import { RoomController } from "./controllers/RoomController";
 import { VideoController } from "./controllers/VideoController";
 import { UserController } from "./controllers/UserController";
 import { LoginController } from "./controllers/LoginController";
+import { authMiddleware , adminAuthMiddleware} from "./middlewares/middlewareAuth";
+
 
 const routes = Router();
 
-
-// Users
-routes.post("/users", new UserController().create); 
-routes.get("/users", new UserController().list); 
-routes.get("/users/:id", new UserController().list); 
-
 // Login
+routes.post("/users", adminAuthMiddleware, new UserController().create); 
+routes.get("/users", adminAuthMiddleware,new UserController().list); 
 routes.post("/login", new LoginController().login);
+
+
+
+// todas as rotas irao chamar o middlewae primeiro
+routes.use(authMiddleware);
+
+routes.get("/profile", new LoginController().rotaQualquer);
+// Users
+routes.get("/users/:id", new UserController().list);
 
 //Rooms
 routes.get("/rooms", new RoomController().list); // turmas

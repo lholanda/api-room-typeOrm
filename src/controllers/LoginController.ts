@@ -1,11 +1,16 @@
 import { Request, Response } from "express";
 import {
   BadRequestError,
-  NotFoundError
+  UnauthorizedError,
+  ForbiddenError
 } from "../helpers/Api-errors";
 import { UserService } from "../services/UserService";
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
+
+type JwtPayload = {
+  id: number
+}
 
 export class LoginController {
   // inserir Rooms
@@ -14,24 +19,30 @@ export class LoginController {
 
     // verificar se existe usuario (email) e se a senha armazenada esta a mesma do bd
     const user = await UserService.findByEmail(email);
-
     if (!user) {
       throw new BadRequestError("Invalid credentials. Please check your email and password.");
     }
-
+    
     const verifyPassword = await bcrypt.compare(password, user.password)
-
     if(!verifyPassword){
         throw new BadRequestError("Invalid credentials. Please check your email and password.");
     }
     // se passar da verificacao de email/senha, criar o com token JWT
-    const token = jwt.sign({id: user.id}, process.env.JWT_PASS ?? '', {expiresIn: '8h'})
+    let jwtPass = process.env.JWT_PASS ?? '';
 
-    const {password: _, ...userLogin} = user;
+    const token = jwt.sign({id: user.id, role: user.role}, jwtPass, {expiresIn: '8h'})
+
+    const {password: _p, role: _r,...userLogin} = user;
 
     return res.status(200).json({
         user: userLogin,
         token: token,
     });
   }
+
+  async rotaQualquer(req: Request, res: Response) {
+    return res.status(200).json('entrou na rota Profile');
+  }
+
+
 }
